@@ -30,11 +30,11 @@ $ npm run build
 
 #### Run webpack-dev-server:
 
-Start the server on http://localhost:8080/
-
 ```sh
 $ npm run start
 ```
+
+Start the server on http://localhost:8080/
 
 ### Authors
 
