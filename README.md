@@ -1,6 +1,6 @@
 # Forkify - tutorial project
 
-Final project from Jonas Schmedtmann's Udemy course (The Complete JavaScript Course).
+Final project from Jonas Schmedtmann's Udemy course (The Complete JavaScript Course). Extra features by Thomas Soolaid.
 
 ### Installation
 
