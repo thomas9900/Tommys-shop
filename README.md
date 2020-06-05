@@ -6,7 +6,7 @@ Final project from Jonas Schmedtmann's Udemy course (The Complete JavaScript Cou
 
 Forkify requires [Node.js](https://nodejs.org/) to run its dependencies.
 
-Install the dependencies and start the server on http://localhost:8080/.
+Install the dependencies.
 
 ```sh
 $ npm install
@@ -29,6 +29,8 @@ $ npm run build
 ```
 
 #### Run webpack-dev-server:
+
+Start the server on http://localhost:8080/
 
 ```sh
 $ npm run start
