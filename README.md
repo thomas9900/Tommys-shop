@@ -8,7 +8,8 @@ Forkify requires [Node.js](https://nodejs.org/) to run its dependencies.
 
 Install the dependencies.
 
-### 'npm install'
+### `npm install`
+
 
 ### Scripts
 
@@ -16,24 +17,19 @@ Forkify utilizes Webpack to compile its files.
 
 #### Run webpack-dev-server:
 
-```sh
-$ npm run start
-```
+### `npm run start`
 
-Start the server on: http://localhost:8080/
+Starts the server on: http://localhost:8080/
 
 
 #### Run webpack in development mode:
 
-```sh
-$ npm run dev
-```
+### `npm run dev`
+
 
 #### Run webpack in production mode:
 
-```sh
-$ npm run build
-```
+### `npm run build`
 
 
 ### Authors
