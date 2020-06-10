@@ -1,3 +1,5 @@
+Link on netlify: https://forkify-application.netlify.app/
+
 # Forkify - tutorial project
 
 Final project from Jonas Schmedtmann's Udemy course (The Complete JavaScript Course). Extra features by Thomas Soolaid.
