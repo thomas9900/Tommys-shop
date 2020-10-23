@@ -32,12 +32,11 @@ console.log(state);
 const controlSearch = async () => {
     // 1) get query from view
     const query = searchView.getInput();
-    
 
     if (query) {
         // 2) new search object and add to state
         state.search = new Search(query);
-        // console.log(state.search);
+        console.log(state.search);
         // 3) prepare UI for results
         searchView.clearInput();
         searchView.clearResults();
@@ -53,7 +52,7 @@ const controlSearch = async () => {
             searchView.renderResults(state.search.result);
 
         } catch (err) {
-            alert('smth wrong w search');
+            alert('something wrong with search');
             clearLoader();
         }
     }

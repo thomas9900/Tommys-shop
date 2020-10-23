@@ -31,7 +31,7 @@ acc: 15 / acc + cur.length = 18 / newTitle = ['pasta', 'with', 'tomato']
 acc: 18 / acc + cur.length = 25 / newTitle = ['pasta', 'with', 'tomato']
 */
 
-export const limitRecipeTitle = (title, limit = 17) => {
+export const limitTitle = (title, limit = 17) => {
     const newTitle = [];
     
     if (title.length > limit) {
@@ -55,17 +55,17 @@ export const limitRecipeTitle = (title, limit = 17) => {
     
 }
 
-const renderRecipe = recipe => {
+const renderProduct = product => {
     // const imgUrl = 'https://spoonacular.com/recipeImages/';
     const markup = `
     <li>
-        <a class="results__link" href="#${recipe.recipe_id}">
+        <a class="results__link" href="#${product.productId}">
             <figure class="results__fig">
-                <img src="${recipe.image_url}" alt="${recipe.title}">
+                <img src="${product.productElements.image.imgUrl}" alt="${product.productElements.title.title}">
             </figure>
             <div class="results__data">
-                <h4 class="results__name">${limitRecipeTitle(recipe.title, 20)}</h4>
-                <p class="results__author">${recipe.publisher}</p>
+                <h4 class="results__name">${limitTitle(product.productElements.title.title, 20)}</h4>
+                <p class="results__author">${product.productElements.price.sell_price.formatedAmount}</p>
             </div>
         </a>
     </li>
@@ -104,15 +104,15 @@ const renderButtons = (page, numResults, ResPerPage) => {
     elements.searchResPages.insertAdjacentHTML('afterbegin', button);
 };
 
-export const renderResults = (recipes, page = 1, ResPerPage = 4) => {
+export const renderResults = (products, page = 1, ResPerPage = 4) => {
     // render results of current page
     const start = (page - 1) * ResPerPage;
     const end = page * ResPerPage;
     // recipes.forEach(el => renderRecipe(el));     is same
-    recipes.slice(start, end).forEach(renderRecipe);
+    products.slice(start, end).forEach(renderProduct);
 
     // render pagination btns
-    renderButtons(page, recipes.length, ResPerPage);
+    renderButtons(page, products.length, ResPerPage);
 };
 
 

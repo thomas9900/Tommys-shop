@@ -9,16 +9,36 @@ export default class Recipe {
 
     async getRecipe() {
         try {
-            // const res = await axios(`${proxy}https://api.spoonacular.com/recipes/${this.id}/information?includeNutrition=false&apiKey=${key}`);
-            const res = await axios(`https://forkify-api.herokuapp.com/api/get?rId=${this.id}`);
-            this.title = res.data.recipe.title;
-            this.author = res.data.recipe.publisher;
-            this.img = res.data.recipe.image_url;
-            this.url = res.data.recipe.sourceUrl;
-            this.ingredients = res.data.recipe.ingredients;
-            console.log(res.data.recipe);
+            // const res = await axios(`https://forkify-api.herokuapp.com/api/get?rId=${this.id}`);
+            // // console.log(res);
+            // this.title = res.data.recipe.title;
+            // this.author = res.data.recipe.publisher;
+            // this.img = res.data.recipe.image_url;
+            // this.url = res.data.recipe.sourceUrl;
+            // this.ingredients = res.data.recipe.ingredients;
+            // console.log(res.data.recipe);
 
             
+
+
+            const options = {
+              method: 'GET',
+              url: `https://rapidapi.p.rapidapi.com/product/${this.id}`,
+              params: {language: 'en'},
+              headers: {
+                'x-rapidapi-host': 'ali-express1.p.rapidapi.com',
+                'x-rapidapi-key': 'a3aca44c0cmsh8d30faed9f743f1p1dbe80jsn5bfb90d3d337'
+              }
+            };
+            let res = await axios(options);
+            console.log(res);
+            this.title = res.data.titleModule.subject;
+            this.author = res.data.priceModule.minActivityAmount.formatedAmount;
+            this.img = res.data.imageModule.imagePathList[0];
+            this.url = res.data.storeModule.storeName;
+            this.ingredients = res.data.imageModule.imagePathList;
+
+
 
             
         } catch (error) {
