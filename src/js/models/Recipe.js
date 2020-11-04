@@ -31,7 +31,7 @@ export default class Recipe {
               }
             };
             let res = await axios(options);
-            console.log(res);
+            // console.log(res);
             this.title = res.data.titleModule.subject;
             this.rating = res.data.titleModule.feedbackRating.averageStar;
             this.img = res.data.imageModule.imagePathList[0];
