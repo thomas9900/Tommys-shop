@@ -1,4 +1,4 @@
-Link on netlify: https://forkify-application.netlify.app/
+Link on netlify: 
 
 # Tommy-s-Shop
 
