@@ -33,12 +33,12 @@ export default class Recipe {
             let res = await axios(options);
             console.log(res);
             this.title = res.data.titleModule.subject;
-            this.author = res.data.priceModule.minActivityAmount.formatedAmount;
+            this.rating = res.data.titleModule.feedbackRating.averageStar;
             this.img = res.data.imageModule.imagePathList[0];
             this.url = res.data.storeModule.storeName;
-            this.ingredients = res.data.imageModule.imagePathList;
-
-
+            this.ingredients = ['hi', 'bye'];
+            this.brand = res.data.specsModule.props[0].attrValue;
+            this.price = res.data.priceModule.minActivityAmount.formatedAmount;
 
             
         } catch (error) {

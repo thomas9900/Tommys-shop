@@ -496,3 +496,64 @@ body {
     margin-left: auto;
     margin-right: auto;
   }
+
+
+
+.quantity-div {
+  margin-bottom: 2rem;
+}
+
+.value-button {
+  font-size: 2rem;
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 4rem;
+  /* height: 3rem; */
+  text-align: center;
+  /* vertical-align: middle; */
+  /* padding: .5rem; */
+  padding-bottom: .5rem;
+  background: #eee;
+  /* -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; */
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+#decrease {
+  /* margin-right: -4px;
+  border-radius: 8px 0 0 8px; */
+}
+
+#increase {
+  /* margin-left: -4px;
+  border-radius: 0 8px 8px 0; */
+}
+
+#input-wrap {
+  /* margin: 0px;
+  padding: 0px; */
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 4rem;
+  height: 4rem;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

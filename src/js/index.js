@@ -240,6 +240,24 @@ window.onload = () => {
     }
 };
 
+function increaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('number').value = value;
+    console.log(value)
+
+}
+
+function decreaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    document.getElementById('number').value = value;
+    console.log(value)
+}
+
 
 // handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
@@ -260,7 +278,11 @@ elements.recipe.addEventListener('click', e => {
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
         // like controller
         controlLike();
-    } else if (e.target.matches('.add-ing-shoplist, .add-ing-shoplist *')) {
+    } else if (e.target.matches('.decrease, .decrease *')) {
+            decreaseValue();
+    } else if (e.target.matches('.increase, .increase *')) {
+    increaseValue();
+    } else if (e.target.matches('.add-ing-shoplist, .add-ing-shoplist *'))  {
         // add single ingredient to shopping list
         const id = e.target.closest('.recipe__item').dataset.itemid;
         console.log(id)

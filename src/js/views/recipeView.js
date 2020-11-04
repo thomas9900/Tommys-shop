@@ -69,31 +69,11 @@ export const renderRecipe = (recipe, isLiked) => {
 
         <div class="recipe__details">
             <div class="recipe__info">
-                <svg class="recipe__info-icon">
-                    <use href="img/icons.svg#icon-stopwatch"></use>
-                </svg>
-                <span class="recipe__info-data recipe__info-data--minutes">${recipe.time}</span>
-                <span class="recipe__info-text"> minutes</span>
+                <span class="recipe__info-text">Rating: ${recipe.rating}/5.0</span>
             </div>
             <div class="recipe__info">
-                <svg class="recipe__info-icon">
-                    <use href="img/icons.svg#icon-man"></use>
-                </svg>
-                <span class="recipe__info-data recipe__info-data--people">${recipe.servings}</span>
-                <span class="recipe__info-text"> servings</span>
+                <span class="recipe__info-text">Brand: ${recipe.brand}</span>
 
-                <div class="recipe__info-buttons">
-                    <button class="btn-tiny btn-decrease">
-                        <svg>
-                            <use href="img/icons.svg#icon-circle-with-minus"></use>
-                        </svg>
-                    </button>
-                    <button class="btn-tiny btn-increase">
-                        <svg>
-                            <use href="img/icons.svg#icon-circle-with-plus"></use>
-                        </svg>
-                    </button>
-                </div>
 
             </div>
             <button class="recipe__love">
@@ -104,9 +84,19 @@ export const renderRecipe = (recipe, isLiked) => {
         </div>
 
         <div class="recipe__ingredients">
+            <span>Price: ${recipe.price}</span>
             <ul class="recipe__ingredient-list">
                 ${recipe.ingredients.map(el => createIngredient(el)).join('')}
+                ${console.log(recipe.ingredients)}
+                
             </ul>
+            <span>Quantity</span>
+            <div class="quantity-div">
+                <div class="value-button decrease" id="decrease" value="Decrease Value">-</div>
+                <input type="number" id="number" value="1" />
+                <div class="value-button increase" id="increase" value="Increase Value">+</div>
+            </div>
+            
 
             <button class="btn-small recipe__btn recipe__btn--add">
                 <svg class="search__icon">
@@ -120,7 +110,7 @@ export const renderRecipe = (recipe, isLiked) => {
             <h2 class="heading-2">How to cook it</h2>
             <p class="recipe__directions-text">
                 This recipe was carefully designed and tested by
-                <span class="recipe__by">${recipe.author}</span>. Please check out directions at their website.
+                <span class="recipe__by">${recipe.url}</span>. Please check out directions at their website.
             </p>
             <a class="btn-small recipe__btn" href="${recipe.url}" target="_blank">
                 <span>Directions</span>
@@ -156,3 +146,8 @@ export const deleteItem = id => {
     console.log(item)
     item.parentElement.removeChild(item);
 };
+
+
+
+
+
