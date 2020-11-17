@@ -6,15 +6,16 @@ export default class List {
         this.items = [];
     }
 
-    addItem(id, count, unit, ingredient) {
+    addItem(id, count, price, product) {
         const item = {
             id,
             count,
-            unit,
-            ingredient
+            price,
+            product
         }
         this.items.push(item);
         this.persistData();
+        console.log(this.items);
         
         return item;
     }
@@ -49,6 +50,15 @@ export default class List {
 
         // restoring likes from the localStorage
         if (storage) this.items = storage;
+    }
+
+    calcTotalPrice() {
+        let totalPrice = 0;
+        for (let i = 0; i < this.items.length; i++) {
+            totalPrice += this.items[i].price;
+            totalPrice = Math.round(totalPrice * 100) / 100;
+        }
+        this.totalPrice = totalPrice;
     }
 
 }

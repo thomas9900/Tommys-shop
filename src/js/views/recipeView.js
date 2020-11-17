@@ -33,18 +33,18 @@ const formatCount = count => {
 };
 
 const createIngredient = ingredient => `
-    <li class="recipe__item" data-itemid=${ingredient.id}>
+    <li class="recipe__item" data-itemid=>
         <svg class="recipe__icon">
             <use href="img/icons.svg#icon-check"></use>
         </svg>
-        <div class="recipe__count">${formatCount(ingredient.count)}</div>
+        <div class="recipe__count"></div>
         <div class="recipe__ingredient">
-            <span class="recipe__unit">${ingredient.unit}</span>
-            ${ingredient.ingredient}
+            <span class="recipe__unit">${ingredient.attrName}:</span>
+            ${ingredient.attrValue}
         </div>
 
         <div class="recipe__info-buttons  add-ing-shoplist">
-            <button class="btn-tiny" data-itemid=${ingredient.id}>
+            <button class="btn-tiny" data-itemid=>
                 <svg class="search__icon">
                     <use href="img/icons.svg#icon-shopping-cart"></use>
                 </svg>
@@ -59,6 +59,7 @@ const createIngredient = ingredient => `
 `;
 
 export const renderRecipe = (recipe, isLiked) => {
+
     const markup = `
         <figure class="recipe__fig">
             <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
@@ -72,9 +73,10 @@ export const renderRecipe = (recipe, isLiked) => {
                 <span class="recipe__info-text">Rating: ${recipe.rating}/5.0</span>
             </div>
             <div class="recipe__info">
-                <span class="recipe__info-text">Brand: ${recipe.brand}</span>
-
-
+                <span class="recipe__info-text">Price: ${recipe.price}</span>
+            </div>
+            <div class="recipe__info">
+                <span class="recipe__info-text">Shipping: Free</span>
             </div>
             <button class="recipe__love">
                 <svg class="header__likes">
@@ -84,17 +86,16 @@ export const renderRecipe = (recipe, isLiked) => {
         </div>
 
         <div class="recipe__ingredients">
-            <span>Price: ${recipe.price}</span>
             <ul class="recipe__ingredient-list">
                 ${recipe.ingredients.map(el => createIngredient(el)).join('')}
-                ${console.log(recipe.ingredients)}
+                
                 
             </ul>
             <span>Quantity</span>
             <div class="quantity-div">
-                <div class="value-button decrease" id="decrease" value="Decrease Value">-</div>
-                <input type="number" id="number" value="1" />
-                <div class="value-button increase" id="increase" value="Increase Value">+</div>
+                <div class="value-button btn-decrease" id="decrease" value="Decrease Value">-</div>
+                <input class="quantity__input" type="number" id="number" value="1" />
+                <div class="value-button btn-increase" id="increase" value="Increase Value">+</div>
             </div>
             
 

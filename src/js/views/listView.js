@@ -6,9 +6,9 @@ export const renderItem = item => {
     <li class="shopping__item" data-itemid=${1 + item.id}>
         <div class="shopping__count">
             <input type="number" value="${item.count}" class="shopping__count-value" step="${item.count}">
-            <p>${item.unit}</p>
+            <p>$${item.price}</p>
         </div>
-        <p class="shopping__description">${item.ingredient}</p>
+        <p class="shopping__description">${item.product}</p>
         <button class="shopping__delete btn-tiny">
             <svg>
                 <use href="img/icons.svg#icon-circle-with-cross"></use>
@@ -31,6 +31,19 @@ export const deleteListBtn = () => {
     </div>
     `;
     elements.shopping.insertAdjacentHTML('afterbegin', deleteList);    
+};
+
+export const totalPriceBtn = value => {
+    const markup = `
+    <div>
+        <h2>Total: $${value.totalPrice}</h2> <br>
+        <button class="btn-small">
+            Proceed to checkout
+        </button>
+    </div>
+    `;
+    elements.shopping.insertAdjacentHTML('afterend', markup);    
+
 };
 
 export const deleteWholeList = () => {

@@ -9,18 +9,6 @@ export default class Recipe {
 
     async getRecipe() {
         try {
-            // const res = await axios(`https://forkify-api.herokuapp.com/api/get?rId=${this.id}`);
-            // // console.log(res);
-            // this.title = res.data.recipe.title;
-            // this.author = res.data.recipe.publisher;
-            // this.img = res.data.recipe.image_url;
-            // this.url = res.data.recipe.sourceUrl;
-            // this.ingredients = res.data.recipe.ingredients;
-            // console.log(res.data.recipe);
-
-            
-
-
             const options = {
               method: 'GET',
               url: `https://rapidapi.p.rapidapi.com/product/${this.id}`,
@@ -30,15 +18,31 @@ export default class Recipe {
                 'x-rapidapi-key': 'a3aca44c0cmsh8d30faed9f743f1p1dbe80jsn5bfb90d3d337'
               }
             };
+
             let res = await axios(options);
-            // console.log(res);
+            console.log(res);
             this.title = res.data.titleModule.subject;
             this.rating = res.data.titleModule.feedbackRating.averageStar;
             this.img = res.data.imageModule.imagePathList[0];
             this.url = res.data.storeModule.storeName;
-            this.ingredients = ['hi', 'bye'];
-            this.brand = res.data.specsModule.props[0].attrValue;
-            this.price = res.data.priceModule.minActivityAmount.formatedAmount;
+            this.ingredients = res.data.specsModule.props;
+            // this.ingredients = ['hi', 'bye'];
+
+            
+            
+
+
+            // for different price api
+            if (res.data.priceModule.minActivityAmount) {
+                this.price = res.data.priceModule.minActivityAmount.formatedAmount;
+            } else this.price = res.data.priceModule.formatedPrice;
+
+            this.priceValue = Number(this.price.replace('US $', ''));
+            console.log(this.priceValue);
+            
+            // if rating is missing
+            if (this.rating == '0.0') {this.rating = '-'};
+            
 
             
         } catch (error) {
@@ -47,99 +51,101 @@ export default class Recipe {
         }   
     }
 
-    calcTime() {
-        // 15min for 3 ingredients
-        const numIng = this.ingredients.length;
-        const periods = Math.ceil(numIng / 3);
-        this.time = periods * 15;
+    getProperties() {
+        for (let i = 0; i < res.data.specsModule.props.length; i++) {
+            this.props = res.data.specsModule.props[i].attrName + ': ' + res.data.specsModule.props[i].attrValue;
+            console.log(this.props);
+
+        }
     }
+
 
     calcServings() {
-        this.servings = 4;
+        this.quantity = 1;
     }
 
-    parseIngredients() {
-        const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoon', 'teaspoons', 'cups', 'pounds', 'cans'];
-        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound', 'can'];
-        const units = [...unitsShort, 'kg', 'g'];
+    // parseIngredients() {
+    //     const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoon', 'teaspoons', 'cups', 'pounds', 'cans'];
+    //     const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound', 'can'];
+    //     const units = [...unitsShort, 'kg', 'g'];
 
-        const newIngredients = this.ingredients.map(el => {
-            // 1) Uniform units
-            let ingredient = el.toLowerCase();
-            let id = uniqid();
+    //     const newIngredients = this.ingredients.map(el => {
+    //         // 1) Uniform units
+    //         let ingredient = el.toLowerCase();
+    //         let id = uniqid();
             
-            unitsLong.forEach((unit, i) => {
-                ingredient = ingredient.replace(unit, unitsShort[i]);
-            });
+    //         unitsLong.forEach((unit, i) => {
+    //             ingredient = ingredient.replace(unit, unitsShort[i]);
+    //         });
             
-            // 2) Remove parentheses
-            ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
+    //         // 2) Remove parentheses
+    //         ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
 
-            // 3) parse ingredients into count, unit and ingredients
-            const arrIng = ingredient.split(' ');
-            const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
+    //         // 3) parse ingredients into count, unit and ingredients
+    //         const arrIng = ingredient.split(' ');
+    //         const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
-            // console.log(arrIng);
-            // console.log(unitIndex);
+    //         // console.log(arrIng);
+    //         // console.log(unitIndex);
 
-            let objIng;
-            if (unitIndex > -1) {
-                // there is a unit
-                // ex. 4 1/2 cups, arrCount is [4, 1/2] --> eval("4+1/2") --> 4.5
-                // ex. 4 cups, arrCount is [4]
-                const arrCount = arrIng.slice(0, unitIndex);
+    //         let objIng;
+    //         if (unitIndex > -1) {
+    //             // there is a unit
+    //             // ex. 4 1/2 cups, arrCount is [4, 1/2] --> eval("4+1/2") --> 4.5
+    //             // ex. 4 cups, arrCount is [4]
+    //             const arrCount = arrIng.slice(0, unitIndex);
 
-                let count;
-                if (arrCount.length === 1) {
-                    count = eval(arrIng[0].replace('-', '+'));
+    //             let count;
+    //             if (arrCount.length === 1) {
+    //                 count = eval(arrIng[0].replace('-', '+'));
                     
-                } else {
-                    count = eval(arrIng.slice(0, unitIndex).join('+'));
-                }
+    //             } else {
+    //                 count = eval(arrIng.slice(0, unitIndex).join('+'));
+    //             }
 
-                objIng = {
-                    id,
-                    count,
-                    unit: arrIng[unitIndex],
-                    ingredient: arrIng.slice(unitIndex + 1).join(' ')
-                };
+    //             objIng = {
+    //                 id,
+    //                 count,
+    //                 unit: arrIng[unitIndex],
+    //                 ingredient: arrIng.slice(unitIndex + 1).join(' ')
+    //             };
                 
-            } else if (parseInt(arrIng[0], 10)) {
-                // there is no unit, but 1st element is number
-                objIng = {
-                    id,
-                    count: parseInt(arrIng[0], 10),
-                    unit: '',
-                    ingredient: arrIng.slice(1).join(' ')
-                }
-            } else if (unitIndex === -1) {
-                // there is no unit & no nr in 1st position
-                objIng = {
-                    id,
-                    count: 1,
-                    unit: '',
-                    ingredient
-                }
-            }
-            // console.log(objIng)            
+    //         } else if (parseInt(arrIng[0], 10)) {
+    //             // there is no unit, but 1st element is number
+    //             objIng = {
+    //                 id,
+    //                 count: parseInt(arrIng[0], 10),
+    //                 unit: '',
+    //                 ingredient: arrIng.slice(1).join(' ')
+    //             }
+    //         } else if (unitIndex === -1) {
+    //             // there is no unit & no nr in 1st position
+    //             objIng = {
+    //                 id,
+    //                 count: 1,
+    //                 unit: '',
+    //                 ingredient
+    //             }
+    //         }
+    //         // console.log(objIng)            
 
-            return objIng;
+    //         return objIng;
 
-        });
-        this.ingredients = newIngredients;
-    }
+    //     });
+    //     this.ingredients = newIngredients;
+    // }
 
     updateServings (type) {
         // servings
-        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+        const fixedPrice = this.priceValue;
+        const newServings = type === 'dec' ? this.priceValue - fixedPrice : this.priceValue + fixedPrice;
 
         // ingredients
-        this.ingredients.forEach(ing => {
-// console.log(ing, newServings, this.servings)
-            ing.count *= (newServings / this.servings);
-        });
+        // this.ingredients.forEach(ing => {
+        //     ing.count *= (newServings / this.servings);
+        // });
 
-        this.servings = newServings;
+        this.priceValue = newServings;
     }
 }
 

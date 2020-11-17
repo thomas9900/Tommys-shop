@@ -96,10 +96,9 @@ const controlRecipe = async () => {
         try {
             //get recipe data and parse ingredients
             await state.recipe.getRecipe();
-            state.recipe.parseIngredients();
+            // state.recipe.parseIngredients();
 
             //calc servings and time
-            state.recipe.calcTime();
             state.recipe.calcServings();
 
             //render recipe
@@ -134,13 +133,17 @@ const controlList = () => {
     }
 
     // add each ingredient to the list and UI
-    state.recipe.ingredients.forEach(el => {
-         
-        const item = state.list.addItem(el.id, el.count, el.unit, el.ingredient);
-        listView.renderItem(item);
-        console.log(item) 
-        
-    });
+    // state.recipe.ingredients.forEach(el => {
+    //     const item = state.list.addItem(el.id, el.count, el.unit, el.ingredient);
+    //     listView.renderItem(item);
+    //     console.log(item) 
+    // });
+    const item = state.list.addItem(state.recipe.id, state.recipe.quantity, state.recipe.priceValue, searchView.limitTitle(state.recipe.title));
+
+    state.list.calcTotalPrice();
+    listView.totalPriceBtn(state.list);
+    
+    listView.renderItem(item);
     
 };
 
@@ -241,21 +244,22 @@ window.onload = () => {
 };
 
 function increaseValue() {
-    var value = parseInt(document.getElementById('number').value, 10);
+    let value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 0 : value;
     value++;
     document.getElementById('number').value = value;
-    console.log(value)
-
+    console.log(value);
+    state.recipe.quantity = value;
 }
 
 function decreaseValue() {
-    var value = parseInt(document.getElementById('number').value, 10);
+    let value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 0 : value;
     value < 1 ? value = 1 : '';
     value--;
     document.getElementById('number').value = value;
-    console.log(value)
+    console.log(value);
+    state.recipe.quantity = value;
 }
 
 
@@ -264,24 +268,22 @@ elements.recipe.addEventListener('click', e => {
     
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
         // decrease button is clicked
-        if (state.recipe.servings > 1) {
+        if (state.recipe.quantity > 1) {
+            decreaseValue();
             state.recipe.updateServings('dec');
-            recipeView.updateServingsIngredients(state.recipe);
+            // recipeView.updateServingsIngredients(state.recipe);
         }
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
         // increase button is clicked
+        increaseValue();
         state.recipe.updateServings('inc');
-        recipeView.updateServingsIngredients(state.recipe);
+        // recipeView.updateServingsIngredients(state.recipe);
     } else if (e.target.matches(`.recipe__btn--add, .recipe__btn--add *`)) {
         // add ingredients to shopping list
         controlList();
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
         // like controller
         controlLike();
-    } else if (e.target.matches('.decrease, .decrease *')) {
-            decreaseValue();
-    } else if (e.target.matches('.increase, .increase *')) {
-    increaseValue();
     } else if (e.target.matches('.add-ing-shoplist, .add-ing-shoplist *'))  {
         // add single ingredient to shopping list
         const id = e.target.closest('.recipe__item').dataset.itemid;
@@ -298,8 +300,9 @@ elements.recipe.addEventListener('click', e => {
                 const item = state.recipe.ingredients[i];
                 listView.renderItem(item);
 
-                state.list.addItem(item.id, item.count, item.unit, item.ingredient);
+                state.list.addItem(item.id, item.count, item.price, item.product);
                 console.log(item);
+
             }
         }
         console.log(state.list)
