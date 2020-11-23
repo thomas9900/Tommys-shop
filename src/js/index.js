@@ -98,9 +98,6 @@ const controlRecipe = async () => {
             await state.recipe.getRecipe();
             // state.recipe.parseIngredients();
 
-            //calc servings and time
-            state.recipe.calcServings();
-
             //render recipe
             clearLoader();
             // console.log(state)
@@ -128,8 +125,9 @@ const controlRecipe = async () => {
 const controlList = () => {
     // create a new list if there is none yet
     if (state.list.items.length === 0) {
-        // state.list = new List();
+        state.list = new List();
         listView.deleteListBtn();
+        listView.totalPriceBtn(state.list);
     }
 
     // add each ingredient to the list and UI
@@ -141,7 +139,6 @@ const controlList = () => {
     const item = state.list.addItem(state.recipe.id, state.recipe.quantity, state.recipe.priceValue, searchView.limitTitle(state.recipe.title));
 
     state.list.calcTotalPrice();
-    listView.totalPriceBtn(state.list);
     
     listView.renderItem(item);
     
@@ -184,7 +181,7 @@ const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
     // console.log(state)
     const currentID = state.recipe.id;
-    
+
     // user has NOT yet liked current recipe
     if (!state.likes.isLiked(currentID)) {
         // add like to the state
@@ -240,43 +237,29 @@ window.onload = () => {
     state.list.items.forEach(item => listView.renderItem(item));
     if (state.list.items.length > 0) {
         listView.deleteListBtn();
+        listView.totalPriceBtn(state.list);
+        state.list.calcTotalPrice();
     }
 };
 
-function increaseValue() {
-    let value = parseInt(document.getElementById('number').value, 10);
-    value = isNaN(value) ? 0 : value;
-    value++;
-    document.getElementById('number').value = value;
-    console.log(value);
-    state.recipe.quantity = value;
-}
-
-function decreaseValue() {
-    let value = parseInt(document.getElementById('number').value, 10);
-    value = isNaN(value) ? 0 : value;
-    value < 1 ? value = 1 : '';
-    value--;
-    document.getElementById('number').value = value;
-    console.log(value);
-    state.recipe.quantity = value;
-}
 
 
 // handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
-    
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
         // decrease button is clicked
         if (state.recipe.quantity > 1) {
-            decreaseValue();
-            state.recipe.updateServings('dec');
+            state.recipe.decreaseQuantity();
+            state.recipe.updatePrice('dec');
             // recipeView.updateServingsIngredients(state.recipe);
         }
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
         // increase button is clicked
-        increaseValue();
-        state.recipe.updateServings('inc');
+        state.recipe.increaseQuantity();
+        state.recipe.updatePrice('inc');
+        
+        console.log(state.recipe.quantity)
+
         // recipeView.updateServingsIngredients(state.recipe);
     } else if (e.target.matches(`.recipe__btn--add, .recipe__btn--add *`)) {
         // add ingredients to shopping list

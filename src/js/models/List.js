@@ -32,6 +32,7 @@ export default class List {
 
     deleteList() {
         this.items = [];
+        this.totalPrice = '';
         // listView.deleteListBtn();
         this.persistData();
     }
@@ -41,24 +42,34 @@ export default class List {
         this.persistData();
     }
 
+
     persistData() {
         localStorage.setItem('items', JSON.stringify(this.items));
+        localStorage.setItem('total', JSON.stringify(this.totalPrice));
     }
 
     readStorage() {
         const storage = JSON.parse(localStorage.getItem('items'));
+        // JSON.parse(localStorage.getItem('total'));
 
         // restoring likes from the localStorage
         if (storage) this.items = storage;
     }
 
-    calcTotalPrice() {
+    calcTotalPrice(count) {
         let totalPrice = 0;
+
         for (let i = 0; i < this.items.length; i++) {
             totalPrice += this.items[i].price;
             totalPrice = Math.round(totalPrice * 100) / 100;
         }
+            
         this.totalPrice = totalPrice;
+
+        let updatedPrice = document.querySelector('.total-price');
+        updatedPrice.textContent = `Total: $${this.totalPrice}`;
+        
+        this.persistData();
     }
 
 }

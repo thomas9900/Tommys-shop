@@ -27,6 +27,7 @@ export default class Recipe {
             this.url = res.data.storeModule.storeName;
             this.ingredients = res.data.specsModule.props;
             // this.ingredients = ['hi', 'bye'];
+            this.quantity = 1;
 
             
             
@@ -38,6 +39,7 @@ export default class Recipe {
             } else this.price = res.data.priceModule.formatedPrice;
 
             this.priceValue = Number(this.price.replace('US $', ''));
+            this.fixedPrice = Number(this.price.replace('US $', ''));
             console.log(this.priceValue);
             
             // if rating is missing
@@ -59,10 +61,26 @@ export default class Recipe {
         }
     }
 
+    increaseQuantity() {
+        let value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('number').value = value;
+        console.log(value);
+        this.quantity = value;
 
-    calcServings() {
-        this.quantity = 1;
-    }
+    };
+
+    decreaseQuantity() {
+        let value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 1 ? value = 1 : '';
+        value--;
+        document.getElementById('number').value = value;
+        console.log(value);
+        this.quantity = value;
+    };
+
 
     // parseIngredients() {
     //     const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoon', 'teaspoons', 'cups', 'pounds', 'cans'];
@@ -135,17 +153,15 @@ export default class Recipe {
     //     this.ingredients = newIngredients;
     // }
 
-    updateServings (type) {
-        // servings
-        const fixedPrice = this.priceValue;
-        const newServings = type === 'dec' ? this.priceValue - fixedPrice : this.priceValue + fixedPrice;
+    updatePrice (type) {
+        
+        console.log(this.fixedPrice, this.priceValue)
 
-        // ingredients
-        // this.ingredients.forEach(ing => {
-        //     ing.count *= (newServings / this.servings);
-        // });
+        const newPrice = type === 'dec' ? this.priceValue - this.fixedPrice : this.priceValue + this.fixedPrice;
 
-        this.priceValue = newServings;
+
+        this.priceValue = newPrice;
+        console.log(newPrice)
     }
 }
 

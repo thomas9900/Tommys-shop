@@ -32,25 +32,27 @@ export const deleteListBtn = () => {
     `;
     elements.shopping.insertAdjacentHTML('afterbegin', deleteList);    
 };
-
-export const totalPriceBtn = value => {
+ 
+export const totalPriceBtn = val => {
     const markup = `
-    <div>
-        <h2>Total: $${value.totalPrice}</h2> <br>
+    <div class="checkout">
+        <h2 class="total-price" value="">Total: $${val.totalPrice} <h2>
+        <br>
         <button class="btn-small">
             Proceed to checkout
         </button>
     </div>
     `;
     elements.shopping.insertAdjacentHTML('afterend', markup);    
-
 };
 
 export const deleteWholeList = () => {
     const item = document.querySelectorAll('.shopping__item');
+    const checkout = document.querySelector('.checkout');
     for (let i = 0; i < item.length; i++) {
         item[i].remove();
     };
+    checkout.remove();
 };
 
 
