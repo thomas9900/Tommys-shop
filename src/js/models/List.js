@@ -21,12 +21,16 @@ export default class List {
     }
 
     deleteItem(id) {
-        const index = this.items.findIndex(el => el.id === id);
         
+        const index = this.items.findIndex(el => el.id === id);
+        console.log(this.items[index]);
         // [2, 4, 8] splice(1, 2) --> returns [4, 8]  original array is [2]
         // [2, 4, 8] slice(1, 2) --> returns 4, original array is [2, 4, 8]
+        
+
         this.items.splice(index, 1);
-        console.log(this.items) 
+        this.calcTotalPrice();
+        console.log(this.items);
         this.persistData();
     }
 
@@ -62,7 +66,7 @@ export default class List {
         for (let i = 0; i < this.items.length; i++) {
             totalPrice += this.items[i].price;
             totalPrice = Math.round(totalPrice * 100) / 100;
-        }
+        };
             
         this.totalPrice = totalPrice;
 

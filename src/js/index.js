@@ -188,7 +188,7 @@ const controlLike = () => {
         const newLike = state.likes.addLike(
             currentID,
             state.recipe.title,
-            state.recipe.author,
+            state.recipe.price,
             state.recipe.img
         );
 
@@ -251,7 +251,6 @@ elements.recipe.addEventListener('click', e => {
         if (state.recipe.quantity > 1) {
             state.recipe.decreaseQuantity();
             state.recipe.updatePrice('dec');
-            // recipeView.updateServingsIngredients(state.recipe);
         }
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
         // increase button is clicked
@@ -260,35 +259,12 @@ elements.recipe.addEventListener('click', e => {
         
         console.log(state.recipe.quantity)
 
-        // recipeView.updateServingsIngredients(state.recipe);
     } else if (e.target.matches(`.recipe__btn--add, .recipe__btn--add *`)) {
         // add ingredients to shopping list
         controlList();
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
         // like controller
         controlLike();
-    } else if (e.target.matches('.add-ing-shoplist, .add-ing-shoplist *'))  {
-        // add single ingredient to shopping list
-        const id = e.target.closest('.recipe__item').dataset.itemid;
-        console.log(id)
-        if (state.list.items.length === 0) {
-            listView.deleteListBtn();
-        } 
-
-        // add single ingredient when there is no list
-        for (let i = 0; i < state.recipe.ingredients.length; i++) {
-            
-            // add single ingredient when there's list
-            if (state.recipe.ingredients[i].id == id) {
-                const item = state.recipe.ingredients[i];
-                listView.renderItem(item);
-
-                state.list.addItem(item.id, item.count, item.price, item.product);
-                console.log(item);
-
-            }
-        }
-        console.log(state.list)
     }
     
 });

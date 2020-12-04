@@ -19,12 +19,12 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: #655A56;
-  background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
+  background-image: linear-gradient(to right bottom, #948E99, #2E1437);
   background-size: cover;
   background-repeat: no-repeat;
   min-height: calc(100vh - 2 * 4vw); }
 
-.container {
+.wrapper {
   max-width: 120rem;
   margin: 4vw auto;
   background-color: #fff;
@@ -36,13 +36,13 @@ body {
   grid-template-columns: 1.1fr 2fr 1.1fr;
   grid-template-areas: "head head head" "list recipe shopping"; }
   @media only screen and (max-width: 68.75em) {
-    .container {
+    .wrapper {
       width: 100%;
       margin: 0;
       border-radius: 0; } }
 
 .btn, .btn-small, .btn-small:link, .btn-small:visited {
-  background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
+  background-image: linear-gradient(to right bottom, #948E99, #2E1437);
   border-radius: 10rem;
   border: none;
   text-transform: uppercase;
@@ -124,11 +124,12 @@ body {
 .heading-2 {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #F59A83;
+  color: #707070;
   text-transform: uppercase;
   margin-bottom: 2.5rem;
   text-align: center;
-  transform: skewY(-3deg); }
+  /* transform: skewY(-3deg);  */
+  }
 
 .copyright {
   color: #968B87;
@@ -145,7 +146,7 @@ body {
   .loader svg {
     height: 5.5rem;
     width: 5.5rem;
-    fill: #F59A83;
+    fill: #2E1437;
     transform-origin: 44% 50%;
     animation: rotate 1.5s infinite linear; }
 
@@ -161,10 +162,26 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between; }
+  @media only screen and (max-width: 40em) {
+    .header {
+      justify-content: left;
+    }
+  }
   .header__logo {
-    margin-left: 4rem;
-    height: 4.5rem;
+    margin-left: 2rem;
+    height: 6rem;
     display: block; }
+  .headerCart {
+    display: none;
+  }
+  @media only screen and (max-width: 40em) {
+    .headerCart {
+      display: block;
+      margin: 0 2rem; 
+      cursor: pointer;}
+    .header__logo {
+      display: none; }
+  }
 
 .search {
   background-color: #fff;
@@ -173,6 +190,11 @@ body {
   align-items: center;
   padding-left: 3rem;
   transition: all .3s; }
+  @media only screen and (max-width: 40em) {
+  .search__btn {
+    padding: 1rem; }
+  }
+
   .search:focus-within {
     transform: translateY(-2px);
     box-shadow: 0 0.7rem 3rem rgba(101, 90, 86, 0.08); }
@@ -183,6 +205,11 @@ body {
     color: inherit;
     font-size: 1.7rem;
     width: 30rem; }
+    @media only screen and (max-width: 40em) {
+    .search__field {
+      width: 10rem; }
+    }
+
     .search__field:focus {
       outline: none; }
     .search__field::placeholder {
@@ -199,13 +226,20 @@ body {
     align-items: center;
     height: 100%;
     transition: all .3s; }
+    @media only screen and (max-width: 40em) {
+    .likes__field {
+      padding: 0 2rem; }
+    }
     .likes__field:hover {
       background-color: #F2EFEE; }
   .likes__panel:hover,
-  .likes__field:hover + .likes__panel {
+  .likes__field:hover + .likes__panel,
+  .headerCart__panel:hover,
+  .headerCart__field:hover + .headerCart__panel {
     visibility: visible;
     opacity: 1; }
-  .likes__icon {
+  .likes__icon,
+  .headerCart__icon {
     fill: #F59A83;
     height: 3.75rem;
     width: 3.75rem; }
@@ -237,6 +271,13 @@ body {
     transition: all .3s;
     border-right: 1px solid #fff;
     text-decoration: none; }
+    @media only screen and (max-width: 45em) {
+        .results__link:link, .results__link:visited,
+        .likes__link:link,
+        .likes__link:visited {
+        padding: 1.5rem 6rem 1.5rem 1.5rem;
+      }
+    }
   .results__link:hover,
   .likes__link:hover {
     background-color: #F9F5F3;
@@ -262,8 +303,11 @@ body {
       position: absolute;
       top: 0;
       left: 0;
-      background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
-      opacity: .4; }
+      border-radius: 100%;
+      border: 1px solid rgb(202, 202, 202);
+      /* background-image: linear-gradient(to right bottom, #e0e0e0, #aaa5a5); */
+      /* opacity: .4;  */
+      }
     .results__fig img,
     .likes__fig img {
       display: block;
@@ -304,47 +348,68 @@ body {
 .recipe {
   background-color: #F9F5F3;
   border-top: 1px solid #fff; }
+  @media only screen and (max-width: 30em) {
+    .recipe {
+      width: 25rem;
+    }
+  }
   .recipe__fig {
-    height: 30rem;
-    position: relative;
-    transform: scale(1.04) translateY(-1px);
-    transform-origin: top; }
+    
+    /* height: 30rem; */
+    /* position: relative; */
+    
+    /* transform-origin: top;  */
+    }
     .recipe__fig::before {
-      content: '';
+      /* content: '';
       display: block;
       height: 100%;
       width: 100%;
       position: absolute;
       top: 0;
-      left: 0;
-      background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
-      opacity: .6; }
+      left: 0; */
+      /* background-image: linear-gradient(to right bottom, #FBDB89, #F48982); */
+      /* opacity: .6;  */
+      }
   .recipe__img {
+    transform: translateY(-1px);
+    border: 1px solid rgb(238, 238, 238);
     width: 100%;
     display: block;
     height: 100%;
-    object-fit: cover; }
+    object-fit: cover; 
+    }
   .recipe__title {
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%, 20%) skewY(-6deg);
-    color: #fff;
+    transform: translate(-50%, 20%);
     font-weight: 700;
-    font-size: 2.75rem;
+    font-size: 2.2rem;
     text-transform: uppercase;
     width: 70%;
-    line-height: 1.95;
+    line-height: 1.95; */
+    /* margin-bottom: 1rem; */
+    
+    padding-top: 3.5rem;
+    color: #fff;
     text-align: center; }
     .recipe__title span {
+      color: #F59A83;
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
-      padding: 1.3rem 2rem;
-      background-image: linear-gradient(to right bottom, #FBDB89, #F48982); }
+      padding: .5rem;
+      /* background-image: linear-gradient(to right bottom, #948E99, #2E1437);  */
+      }
   .recipe__details {
     display: flex;
     align-items: center;
-    padding: 8rem 3rem 3rem 3rem; }
+    padding: 3rem; }
+  @media only screen and (max-width: 30em) {
+    .recipe__details {
+      display: block;
+    }
+  }
   .recipe__info {
     font-size: 1.5rem;
     text-transform: uppercase;
@@ -372,7 +437,7 @@ body {
     opacity: 1;
     transform: translateY(0); }
   .recipe__love {
-    background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
+    background-image: linear-gradient(to right bottom, #948E99, #2E1437);
     border-radius: 50%;
     border: none;
     cursor: pointer;
@@ -399,25 +464,29 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center; }
+    @media only screen and (max-width: 30em) {
+    .recipe__ingredients {
+      padding: 0; } }
   .recipe__ingredient-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 1.5rem;
     grid-row-gap: 2.5rem;
-    list-style: none;
+    /* list-style: none; */
+    /* list-style-type: square !important; */
     margin-bottom: 3rem; }
   .recipe__item {
     display: flex; }
   .recipe__icon {
-    height: 1.8rem;
-    width: 1.8rem;
-    fill: #F59A83;
-    border: 1px solid #F59A83;
+    height: 1rem;
+    width: 1rem;
+    /* fill: #F59A83; */
+    border: 2px solid #525252;
     border-radius: 50%;
     padding: 2px;
     margin-right: 1rem;
     flex: 0 0 auto;
-    margin-top: .1rem; }
+    margin-top: .5rem; }
   .recipe__count {
     margin-right: .5rem;
     flex: 0 0 auto; }
@@ -440,6 +509,11 @@ body {
   padding: 3rem 4rem;
   display: flex;
   flex-direction: column; }
+  @media only screen and (max-width: 40em) {
+    .shopping {
+      display: none;
+    }
+  }
   .shopping__list {
     list-style: none;
     max-height: 77rem;
@@ -506,21 +580,11 @@ body {
 .value-button {
   font-size: 2rem;
   display: inline-block;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   margin: 0px;
-  width: 4rem;
-  /* height: 3rem; */
+  width: 2.5rem;
   text-align: center;
-  /* vertical-align: middle; */
-  /* padding: .5rem; */
-  padding-bottom: .5rem;
-  background: #eee;
-  /* -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; */
+
 }
 
 .value-button:hover {
@@ -548,8 +612,8 @@ input#number {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   margin: 0px;
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
 }
 
 input[type=number]::-webkit-inner-spin-button,
