@@ -153,11 +153,14 @@ elements.shopping.addEventListener('click', e => {
     if (e.target.matches('.shopping__delete, .shopping__delete *')) {
         // delete from state
         state.list.deleteItem(id);
-        // console.log(state.list)
+        // console.log(state.list.items.length)
 
         // delete from UI
         listView.deleteItem(id);
-    
+        
+        if (state.list.items.length === 0) {
+            listView.deleteWholeList();
+        }
 
     // delete the whole list
     } else if (e.target.matches('.shopping__delete-list, .shopping__delete-list *')) { 
