@@ -1,6 +1,6 @@
-Link on netlify: 
 
-# Tommy-s-Shop
+
+# Tommys-Shop
 
 ### Installation
 
