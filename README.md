@@ -2,6 +2,8 @@
 
 # Tommys-Shop
 
+## An e-shop made with Vanilla Javascript
+
 ### Installation
 
 Requires [Node.js](https://nodejs.org/) to run its dependencies.
@@ -14,7 +16,7 @@ Install the dependencies.
 
 ### Scripts
 
-Forkify utilizes Webpack to compile its files.
+Utilizes Webpack to compile its files.
 
 #### Run webpack-dev-server:
 
